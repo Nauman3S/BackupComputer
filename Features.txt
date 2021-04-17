@@ -1,0 +1,20 @@
+1)User Login Signup
+2)User Dashboard
+  Upload
+  Print
+  Scan
+  Copy
+  Fax
+  timed based above features(print/fax by day/date)
+  
+  user reward points
+  user credits(linked to print/scan/copy/fax)
+  request more credits
+  
+  
+  
+Admin Panel
+list of all users with details like jobs, credits, rewards
+approve credits request
+block user
+  
