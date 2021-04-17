@@ -14,9 +14,11 @@
 
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
 import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./App";
+import store from './store'
 
 // router setup
 import routes from "./routes/routes";
@@ -44,10 +46,12 @@ Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
+//Vue.prototype.$SelectedV = [];
 
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
+  store,
   render: h => h(App),
   router,
   data: {

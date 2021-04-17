@@ -12,7 +12,20 @@
           <md-card-content>
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-100">
-                <h5>Notifications Style</h5>
+                   <div
+                 class="md-layout-item md-medium-size-100 md-xsmall-size-150 md-size-150"
+          >
+                    <md-card>
+                      <md-card-header data-background-color="blue">
+                        <h4 class="title">Controller</h4>
+                        <p class="category">Select the function(s) below to start a job</p>
+                      </md-card-header>
+                      <md-card-content  >
+                        <md-button class="md-primary md-lg" @click="print()"><md-icon >print</md-icon>Print</md-button>
+                      </md-card-content>
+                    </md-card>
+                  </div>
+                  <!-- <h5>Control Center</h5>
                 <div class="alert alert-info">
                   <span>This is a plain notification</span>
                 </div>
@@ -33,8 +46,8 @@
                   <span data-notify="message"
                     >This is a notification with close button and icon.</span
                   >
-                </div>
-                <div
+                </div> -->
+                <!-- <div
                   class="alert alert-info alert-with-icon"
                   data-notify="container"
                 >
@@ -49,7 +62,7 @@
                     notification. So you don't have to worry about the
                     style.</span
                   >
-                </div>
+                </div> -->
               </div>
               <div class="md-layout-item md-medium-size-100">
                 <div
@@ -169,6 +182,12 @@ import {
 } from "@/components";
 
 export default {
+  props: {
+  imgLogo: {
+      type: String,
+      default: require("@/assets/img/vue-logo.png")
+    },
+  },
   components: {
     
     // ChartCard,
@@ -184,7 +203,7 @@ export default {
     };
   },
   methods: {
-    notifyVue(verticalAlign, horizontalAlign) {
+    notifyVue(verticalAlign, horizontalAlign,clr) {
       var color = Math.floor(Math.random() * 4 + 1);
       this.$notify({
         message:
@@ -194,6 +213,26 @@ export default {
         verticalAlign: verticalAlign,
         type: this.type[color]
       });
+    },
+
+    notifyM(verticalAlign, horizontalAlign,clr,title,msg) {
+      var color = clr;//Math.floor(Math.random() * 4 + 1);
+      this.$notify({
+        message:
+          "<b>"+title+"</b><br>"+msg,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: this.type[color]
+      });
+    },
+    print(){
+      var itemsList=this.$store.state.selectedCheckBoxes;
+      console.log(itemsList)
+      console.log('printing')
+      if(itemsList.length==0){
+          this.notifyM("top","right",4,'Error','Please select a file to print.')
+      }
     }
   }
 };

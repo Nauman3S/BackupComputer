@@ -4,7 +4,7 @@
     <md-table v-model="users" :table-header-color="tableHeaderColor">
       
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label=""><input type="checkbox" :id="item.ID" :value="item.FileName" v-model="selected"></md-table-cell>
+        <md-table-cell md-label=""><input type="checkbox" :id="item.ID" :value="item.FileName" v-model="selectedV"></md-table-cell>
         <md-table-cell md-label="ID">{{ item.ID }}</md-table-cell>
         <md-table-cell md-label="File Name">{{ item.FileName }}</md-table-cell>
         <md-table-cell md-label="File Type">{{ item.FileType }}</md-table-cell>
@@ -19,6 +19,7 @@
 
 <script>
 const API_URL = "http://edc-backend.production.wrapdrive.tech/v1/listAll";
+//import selected from '@/assets/js/helper.js'
 export default {
   name: "FilesList",
   props: {
@@ -29,7 +30,7 @@ export default {
   },
   data() {
     return {
-      selected: [],
+      selectedV: [],
       allData:[
         {
                 ID:1,
@@ -100,14 +101,18 @@ getData(){
 
 //       });
 this.users=this.allData;
-//console.log(this.selected)
+//selected=this.selectedV;
+//this.$SelectedV=this.selectedV
+this.$store.state.selectedCheckBoxes=this.selectedV;
+// console.log('selectedV',this.selectedV)
+// console.log('selectedSTORE;',this.$store.state.totalTvCount)
   },
 },
   mounted(){
     this.$nextTick(function () {
             window.setInterval(() => {
                 this.getData();
-            },2000);
+            },500);
         })
     // this.getData()
   }
