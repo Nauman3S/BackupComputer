@@ -3,10 +3,10 @@
     <div class="md-layout">
       <div class="md-layout-item">
         <md-card>
-          <md-card-header data-background-color="green">
-            <h4 class="title">Notifications</h4>
+          <md-card-header data-background-color="purple">
+            <h4 class="title">Controller</h4>
             <p class="category">
-              Handcrafted by us with <i class="fa fa-heart heart"></i>
+              Interact with your Backup-Computer
             </p>
           </md-card-header>
           <md-card-content>
@@ -52,7 +52,21 @@
                 </div>
               </div>
               <div class="md-layout-item md-medium-size-100">
-                <h5>Notification states</h5>
+                <div
+        class="md-layout-item md-medium-size-100 md-xsmall-size-150 md-size-150"
+      >
+        <md-card>
+          <md-card-header data-background-color="green">
+            <h4 class="title">Files</h4>
+            <p class="category">Files List</p>
+          </md-card-header>
+          <md-card-content  >
+            <FilesList  table-header-color="blue"></FilesList>
+          </md-card-content>
+        </md-card>
+      </div>
+
+                
                 <div class="alert alert-info">
                   <button type="button" aria-hidden="true" class="close">
                     ×
@@ -147,7 +161,20 @@
 </template>
 
 <script>
+import {
+  
+  
+  
+  FilesList
+} from "@/components";
+
 export default {
+  components: {
+    
+    // ChartCard,
+    
+    FilesList
+  },
   data() {
     return {
       type: ["", "info", "success", "warning", "danger"],
