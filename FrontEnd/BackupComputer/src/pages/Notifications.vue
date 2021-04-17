@@ -22,6 +22,9 @@
                       </md-card-header>
                       <md-card-content  >
                         <md-button class="md-primary md-lg" @click="print()"><md-icon >print</md-icon>Print</md-button>
+                        <md-button class="md-primary md-lg" @click="print()"><md-icon >file_copy</md-icon>Copy</md-button>
+                        <md-button class="md-primary md-lg" @click="print()"><md-icon >document_scanner</md-icon>Scan</md-button>
+                        <md-button class="md-primary md-lg" @click="print()"><md-icon >receipt_long</md-icon>Fax</md-button>
                       </md-card-content>
                     </md-card>
                   </div>
@@ -228,10 +231,14 @@ export default {
     },
     print(){
       var itemsList=this.$store.state.selectedCheckBoxes;
-      console.log(itemsList)
-      console.log('printing')
+      
       if(itemsList.length==0){
           this.notifyM("top","right",4,'Error','Please select a file to print.')
+      }
+      else{
+          console.log(itemsList)
+        console.log('printing')
+        this.notifyM("top","right",2,'Printing','Print job added successfully.')
       }
     }
   }

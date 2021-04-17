@@ -50,7 +50,7 @@ const routes = [
       },
       {
         path: "notifications",
-        name: "Notifications",
+        name: "Control Center",
         component: Notifications
       },
       {
