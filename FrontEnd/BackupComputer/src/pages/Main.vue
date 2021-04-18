@@ -33,7 +33,7 @@
 </template>
 
 <script>
-const API_URL = "http://edc-backend.production.wrapdrive.tech/v1/getActive";
+const API_URL = "http://bkc-backend.production.wrapdrive.tech/v1/loginUser";
 
 
 export default {
@@ -42,6 +42,10 @@ export default {
   },
   data() {
     return {
+      type: ["", "info", "success", "warning", "danger"],
+      notifications: {
+        topCenter: false
+      },
       imgFile: require("@/assets/img/BackupComputer.jpg"),
       emailAd: "",
       password: "",
@@ -51,12 +55,49 @@ export default {
     
   },
   methods:{
+    notifyM(verticalAlign, horizontalAlign,clr,title,msg) {
+      var color = clr;//Math.floor(Math.random() * 4 + 1);
+      this.$notify({
+        message:
+          "<b>"+title+"</b><br>"+msg,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: this.type[color]
+      });
+    },
     logIn(){
       console.log('login');
       //this.$sidebar.displaySidebar(false);
-      this.$store.state.loggedInUser=this.emailAd;
-      console.log(this.$store.state.loggedInUser)
-      this.$router.push({ path: 'dashboard'})
+
+      const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email:this.emailAd,password:this.password})
+  };
+  fetch(API_URL, requestOptions)
+    .then(response => response.json())
+    .then(result=>{
+      console.log(result.data)
+      if(result.data.length==0){
+
+        this.notifyM("top","right",4,'Error','Error while logging-in.')
+      }
+      else{
+        this.notifyM("top","right",2,'Login','Login successful.')
+          this.$store.state.loggedInUser=this.emailAd;
+          this.$router.push({ path: 'dashboard'})
+
+      }
+    });//data => (this.postId = data.id)
+    
+    
+    // this.notifyM("top","right",2,'Registraion','Registraion successful.')
+    // this.$router.push({ path: 'main'})
+
+    //   this.$store.state.loggedInUser=this.emailAd;
+    //   console.log(this.$store.state.loggedInUser)
+    //   this.$router.push({ path: 'dashboard'})
 
       
     },

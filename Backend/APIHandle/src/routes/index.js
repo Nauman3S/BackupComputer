@@ -91,6 +91,17 @@ indexRouter.post('/registerUser', cors(),function(req, res) {
 });
 
 
+indexRouter.post('/loginUser',cors(), function(req, res) {
+  let sql = `SELECT * FROM Users WHERE Email='`+req.body.email+`' AND Password='`+req.body.password+`'`;
+  db.query(sql, function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      data,
+      message: "User lists retrieved successfully"
+    })
+  })
+});
 
 indexRouter.get('/listAll', cors(),function(req, res) {
   

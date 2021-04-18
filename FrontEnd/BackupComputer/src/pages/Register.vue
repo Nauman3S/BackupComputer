@@ -50,7 +50,7 @@
 </template>
 
 <script>
-const API_URL = "http://edc-backend.production.wrapdrive.tech/v1/getActive";
+const API_URL = "http://bkc-backend.production.wrapdrive.tech/v1/registerUser";
 
 
 export default {
@@ -59,6 +59,10 @@ export default {
   },
   data() {
     return {
+      type: ["", "info", "success", "warning", "danger"],
+      notifications: {
+        topCenter: false
+      },
       imgFile: require("@/assets/img/BackupComputer.jpg"),
       password1: "",
       password2: "",
@@ -71,8 +75,34 @@ export default {
     
   },
   methods:{
+    notifyM(verticalAlign, horizontalAlign,clr,title,msg) {
+      var color = clr;//Math.floor(Math.random() * 4 + 1);
+      this.$notify({
+        message:
+          "<b>"+title+"</b><br>"+msg,
+        icon: "add_alert",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: this.type[color]
+      });
+    },
     signUp(){
-      console.log('signUp');
+      if(this.password1==this.password2){
+        console.log('updating')
+    const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ FName: this.fname, LName:this.lname,Email:this.emailAd,Password:this.password1})
+  };
+  fetch(API_URL, requestOptions)
+    .then(response => response.json())
+    .then();//data => (this.postId = data.id)
+    this.notifyM("top","right",2,'Registraion','Registraion successful.')
+    this.$router.push({ path: 'main'})
+    }
+      else{
+        this.notifyM("top","right",4,'Error','Passwords didn\'t match.')
+      }
       
       
     },
