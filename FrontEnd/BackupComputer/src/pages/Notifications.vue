@@ -80,6 +80,15 @@
             <FilesList  table-header-color="blue"></FilesList>
           </md-card-content>
         </md-card>
+        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+        <br>
+        <md-button class="md-primary" @click="notifyVue('top', 'left')">
+                   Upload a File
+        </md-button>
+        <md-button class="md-raised md-accent" @click="notifyVue('top', 'left')">
+                   Delete Selected
+        </md-button>
+        
       </div>
 
                 
@@ -199,6 +208,7 @@ export default {
   },
   data() {
     return {
+      file:'',
       type: ["", "info", "success", "warning", "danger"],
       notifications: {
         topCenter: false
@@ -206,6 +216,11 @@ export default {
     };
   },
   methods: {
+    handleFileUpload(){
+    this.file = this.$refs.file.files[0];
+    console.log(this.file)
+  },
+
     notifyVue(verticalAlign, horizontalAlign,clr) {
       var color = Math.floor(Math.random() * 4 + 1);
       this.$notify({

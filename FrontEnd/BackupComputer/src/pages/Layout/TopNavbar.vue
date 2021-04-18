@@ -1,5 +1,5 @@
 <template>
-  <md-toolbar md-elevation="0" class="md-transparent">
+  <md-toolbar md-elevation="0" class="md-transparent" v-if="$route.meta.showSidebar">
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start">
         <h3 class="md-title">{{ $route.name }}</h3>
@@ -61,15 +61,15 @@
                       data-toggle="dropdown"
                     >
                       <md-icon>notifications</md-icon>
-                      <span class="notification">5</span>
+                      <span class="notification">1</span>
                       <p class="hidden-lg hidden-md">Notifications</p>
                     </md-button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Mike John responded to your email</a></li>
-                      <li><a href="#">You have 5 new tasks</a></li>
+                      <li><a href="#">BackUp Computer Live</a></li>
+                      <!-- <li><a href="#">You have 5 new tasks</a></li>
                       <li><a href="#">You're now friend with Andrew</a></li>
                       <li><a href="#">Another Notification</a></li>
-                      <li><a href="#">Another One</a></li>
+                      <li><a href="#">Another One</a></li> -->
                     </ul>
                   </drop-down>
                 </div>

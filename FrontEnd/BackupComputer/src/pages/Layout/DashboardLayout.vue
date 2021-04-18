@@ -1,13 +1,14 @@
 <template>
-  <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
-    <notifications></notifications>
 
-    <side-bar
+  <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }" >
+    <notifications ></notifications>
+
+    <side-bar v-if="$route.meta.showSidebar"
       :sidebar-item-color="sidebarBackground"
       :sidebar-background-image="sidebarBackgroundImage"
     >
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/dashboard">
+      <sidebar-link to="/dashboard" >
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
@@ -56,6 +57,7 @@
       <content-footer v-if="!$route.meta.hideFooter"></content-footer>
     </div>
   </div>
+  
 </template>
 
 <script>

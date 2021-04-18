@@ -1,5 +1,8 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
+
+import Register from "@/pages/Register.vue";
+import Main from "@/pages/Main.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import TableList from "@/pages/TableList.vue";
@@ -11,52 +14,94 @@ import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
 
 const routes = [
   {
+
+    
+    
+
     path: "/",
     component: DashboardLayout,
     redirect: "/dashboard",
     children: [
       {
+        path: "main",
+        name: "Main",
+        component: Main,
+        meta: {
+          showSidebar: false,
+        },
+      },
+      {
+        path: "register",
+        name: "Register",
+        component: Register,
+        meta: {
+          showSidebar: false,
+        },
+      },
+      {
         path: "dashboard",
         name: "Dashboard",
-        component: Dashboard
+        component: Dashboard,
+        meta: {
+          showSidebar: true,
+        },
       },
       {
         path: "user",
         name: "User Profile",
-        component: UserProfile
+        component: UserProfile,
+        meta: {
+          showSidebar: true,
+        },
       },
       {
         path: "table",
         name: "Table List",
-        component: TableList
+        component: TableList,
+        meta: {
+          showSidebar: true,
+        },
       },
       {
         path: "typography",
         name: "Typography",
-        component: Typography
+        component: Typography,
+        meta: {
+          showSidebar: true,
+        },
       },
       {
         path: "icons",
         name: "Icons",
-        component: Icons
+        component: Icons,
+        meta: {
+          showSidebar: true,
+        },
       },
       {
         path: "maps",
         name: "Maps",
         meta: {
-          hideFooter: true
+          hideFooter: true,
+          showSidebar: true
         },
         component: Maps
       },
       {
         path: "notifications",
         name: "Control Center",
-        component: Notifications
+        component: Notifications,
+        meta: {
+          showSidebar: true,
+        },
       },
       {
         path: "upgrade",
         name: "Upgrade to PRO",
-        component: UpgradeToPRO
+        component: UpgradeToPRO,
+        meta: {
+          showSidebar: true,
+        },
       }
     ]
   }
