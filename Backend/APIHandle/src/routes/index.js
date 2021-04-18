@@ -49,11 +49,11 @@ client.on('connect', () => {
 
 
 var db = mysql.createConnection({
-  host: 'srv-captain--vb-mysqldb-db',
+  host: 'srv-captain--gh-mysqldb-db',
   port:3306,
   user: 'root',
-  password: 'vb-mysqldb',
-  database: 'edc_monitor',
+  password: 'gh-mysqldb',
+  database: 'backupcomputer',
   multipleStatements: true
 })
 db.connect(function(err) {
@@ -65,6 +65,32 @@ db.connect(function(err) {
 
 indexRouter.get('/', cors(), indexPage);
 indexRouter.get('/csh', cors(), cashHandlePage);
+
+
+indexRouter.post('/registerUser', cors(),function(req, res) {
+  let sql = `INSERT INTO Users(FName, LName, Email, Password, Role, Credits, RewardPoints,CreditsRequest,TotalJobs) VALUES (?)`;
+  let values = [
+    req.body.FName,
+    req.body.LName,
+    req.body.Email,
+    req.body.Password,
+    "user",
+    "10",
+    "5",
+    "0",
+    "0"
+    
+  ];
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "New player added successfully"
+    })
+  })
+});
+
+
 
 indexRouter.get('/listAll', cors(),function(req, res) {
   

@@ -5,7 +5,9 @@ import Vue from "vue";
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    selectedCheckBoxes: [] 
+    selectedCheckBoxes: [] ,
+    loggedInUser: "",
+    loggedInUserRole: ""
   },
   
   getters: {

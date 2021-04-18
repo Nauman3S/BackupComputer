@@ -4,10 +4,38 @@
     <div class="md-layout">
 
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
-      <input type="text" name="username" placeholder="Username" /><br><br>
-      <input type="text" name="email" placeholder="Email Address" /><br><br>
-      <input type="text" name="username" placeholder="Username" /><br><br>
-      <input type="password" name="password" placeholder="Re-type Password" />
+      <div class="md-layout-item md-small-size-100 md-size-80">
+            <md-field>
+              <label>First Name</label>
+              <md-input v-model="fname" type="text"></md-input>
+            </md-field>
+      </div>
+      <div class="md-layout-item md-small-size-100 md-size-80">
+            <md-field>
+              <label>Last Name</label>
+              <md-input v-model="lname" type="text"></md-input>
+            </md-field>
+      </div>
+      <div class="md-layout-item md-small-size-100 md-size-80">
+            <md-field>
+              <label>Email Address</label>
+              <md-input v-model="emailAd" type="text"></md-input>
+            </md-field>
+      </div>
+      
+      <div class="md-layout-item md-small-size-100 md-size-80">
+            <md-field>
+              <label>Password</label>
+              <md-input v-model="password1" type="password"></md-input>
+            </md-field>
+      </div>
+      <div class="md-layout-item md-small-size-100 md-size-80">
+            <md-field>
+              <label>Retype Password</label>
+              <md-input v-model="password2" type="password"></md-input>
+            </md-field>
+      </div>
+          
       </div>
 <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
      <md-button
@@ -31,7 +59,12 @@ export default {
   },
   data() {
     return {
-      imgFile: require("@/assets/img/BackupComputer.jpg")
+      imgFile: require("@/assets/img/BackupComputer.jpg"),
+      password1: "",
+      password2: "",
+      fname:"",
+      lname:"",
+      emailAd:"",
        
      
       }

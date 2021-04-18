@@ -4,11 +4,11 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="ID">{{ item.ID }}</md-table-cell>
         <md-table-cell md-label="Time Stamp">{{ item.Timestamp }}</md-table-cell>
-        <md-table-cell md-label="Player ID">{{ item.PlayerID }}</md-table-cell>
-        <md-table-cell md-label="Total Money IN 30 Days">{{ item.TMIN30 }}</md-table-cell>
-        <md-table-cell md-label="Total Money OUT 30 Days">{{ item.TMOUT30 }}</md-table-cell>
-        <md-table-cell md-label="Total Money IN Daily">{{ item.TMIND }}</md-table-cell>
-        <md-table-cell md-label="Total Money OUT Daily">{{ item.TMOUTD }}</md-table-cell>
+        <md-table-cell md-label="File Name">{{ item.PlayerID }}</md-table-cell>
+        <md-table-cell md-label="Job Type">{{ item.PlayerID }}</md-table-cell>
+        <md-table-cell md-label="Credits Used">{{ item.TMIN30 }}</md-table-cell>
+        <md-table-cell md-label="Reward Points Earned">{{ item.TMOUT30 }}</md-table-cell>
+        
       </md-table-row>
     </md-table>
   </div>

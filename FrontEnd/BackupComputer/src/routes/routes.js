@@ -1,9 +1,11 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
+import AdminDashboardLayout from "@/pages/Layout/AdminDashboardLayout.vue";
 
 
 import Register from "@/pages/Register.vue";
 import Main from "@/pages/Main.vue";
 import Dashboard from "@/pages/Dashboard.vue";
+import admin_dashboard from "@/pages/admin_dashboard.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import TableList from "@/pages/TableList.vue";
 import Typography from "@/pages/Typography.vue";
@@ -13,11 +15,8 @@ import Notifications from "@/pages/Notifications.vue";
 import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
 
 const routes = [
+  
   {
-
-    
-    
-
     path: "/",
     component: DashboardLayout,
     redirect: "/dashboard",
@@ -66,7 +65,9 @@ const routes = [
         path: "typography",
         name: "Typography",
         component: Typography,
+        
         meta: {
+          
           showSidebar: true,
         },
       },
@@ -104,7 +105,25 @@ const routes = [
         },
       }
     ]
-  }
+
+    
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: AdminDashboardLayout,
+    children: [
+      {
+        path: "admin_dashboard",
+        name: "admin_dashboard",
+        component: admin_dashboard,
+        meta: {
+          showSidebar: true,
+        },
+      },
+     
+    ]
+},
 ];
 
 export default routes;

@@ -22,7 +22,7 @@
                       </md-card-header>
                       <md-card-content  >
                         <md-button class="md-primary md-lg" @click="print()"><md-icon >print</md-icon>Print</md-button>
-                        <md-button class="md-primary md-lg" @click="print()"><md-icon >file_copy</md-icon>Copy</md-button>
+                        <md-button class="md-primary md-lg" @click="copy()"><md-icon >file_copy</md-icon>Copy</md-button>
                         <md-button class="md-primary md-lg" @click="print()"><md-icon >document_scanner</md-icon>Scan</md-button>
                         <md-button class="md-primary md-lg" @click="print()"><md-icon >receipt_long</md-icon>Fax</md-button>
                       </md-card-content>
@@ -91,8 +91,11 @@
         
       </div>
 
+
+
+
                 
-                <div class="alert alert-info">
+                <!-- <div class="alert alert-info">
                   <button type="button" aria-hidden="true" class="close">
                     ×
                   </button>
@@ -175,7 +178,7 @@
                     @click="notifyVue('bottom', 'right')"
                     >Bottom Right</md-button
                   >
-                </div>
+                </div> -->
               </div>
             </div>
           </md-card-content>
@@ -255,6 +258,10 @@ export default {
         console.log('printing')
         this.notifyM("top","right",2,'Printing','Print job added successfully.')
       }
+    },
+    copy(){
+      console.log(this.$store.state.loggedInUser)
+
     }
   }
 };
