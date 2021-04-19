@@ -189,6 +189,10 @@
 </template>
 
 <script>
+const API_URL_RewardsCredsUpdate = "http://bkc-backend.production.wrapdrive.tech/v1/rewardCredsUpdate";
+const API_URL_LedgerUpdate = "http://bkc-backend.production.wrapdrive.tech/v1/ledgerUpdate";
+
+
 import {
   
   

@@ -9,7 +9,7 @@
 
           <template slot="content">
             <p class="category">Credits</p>
-            <h3 class="title">{{PlayerID}}</h3>
+            <h3 class="title">{{this.$store.state.loggedInUserDetails['Credits']}}</h3>
           </template>
 
           <template slot="footer">
@@ -28,7 +28,7 @@
 
           <template slot="content">
             <p class="category">Reward Points</p>
-            <h3 class="title">{{TMIN30}}</h3>
+            <h3 class="title">{{this.$store.state.loggedInUserDetails['RewardPoints']}}</h3>
           </template>
 
           <template slot="footer">
@@ -48,7 +48,7 @@
 
           <template slot="content">
             <p class="category">Total Jobs</p>
-            <h3 class="title">{{TMOUT30}}</h3>
+            <h3 class="title">{{this.$store.state.loggedInUserDetails['TotalJobs']}}</h3>
           </template>
 
           <template slot="footer">
@@ -158,6 +158,7 @@
 
 <script>
 const API_URL = "http://edc-backend.production.wrapdrive.tech/v1/getActive";
+const API_URL_USERLedger = "http://bkc-backend.production.wrapdrive.tech/v1/getUserLedger";
 import {
   StatsCard,
   ChartCard,
@@ -177,10 +178,12 @@ export default {
     return {
        
       dataD:'asd',
-      PlayerID:'',
+      ID:'',
       Timestamp:'',
-      TMIN30:'',
-      TMOUT30:'',
+      FileName:'',
+      JobType:'',
+      CreditsUsed:'',
+      RewardPointsEarned:'',
       dailySalesChart: {
         data: {
           labels: ["M", "T", "W", "T", "F", "S", "S"],
@@ -270,18 +273,18 @@ export default {
   },
   methods:{
 getData(){
-fetch(API_URL)
-       fetch(API_URL)
-      .then(response => response.json())
-      .then(result => {
+// fetch(API_URL_USERLedger)
+//        fetch(API_URL_USERLedger)
+//       .then(response => response.json())
+//       .then(result => {
         
-        this.Timestamp ='Last Updated '+ result['data'][0].Timestamp,
-        this.PlayerID = result['data'][0].PlayerID
-        this.TMIN30=result['data'][0].TMIN30
-        this.TMOUT30=result['data'][0].TMOUT30
-        //JSON.parse(result['data'])
+//         this.Timestamp ='Last Updated '+ result['data'][0].Timestamp,
+//         this.PlayerID = result['data'][0].PlayerID
+//         this.TMIN30=result['data'][0].TMIN30
+//         this.TMOUT30=result['data'][0].TMOUT30
+//         //JSON.parse(result['data'])
 
-      });
+//       });
   },
 },
   mounted(){

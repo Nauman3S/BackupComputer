@@ -179,6 +179,61 @@ indexRouter.post('/rewardToCred',cors(), function(req, res) {
 });
 
 
+
+//On new jobs//
+indexRouter.post('/rewardCredsUpdate',cors(), function(req, res) {
+  //console.log(req);
+  let values = [
+    
+    req.body.RewardPoints,
+    req.body.Credits,
+    req.body.Email
+    
+  ];
+  let sql = `UPDATE Users SET RewardPoints='`+values[0]+`' ,Credits='`+values[1]+`' WHERE Email='`+values[2]+`'`;
+  
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "User Updated"
+    })
+  })
+});
+indexRouter.post('/getUserLedger',cors(), function(req, res) {
+  let sql = `SELECT * FROM Ledger WHERE Email='`+req.body.email+`'`;
+  db.query(sql, function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      data,
+      message: "User lists retrieved successfully"
+    })
+  })
+});
+
+indexRouter.post('/ledgerUpdate', cors(),function(req, res) {
+  let sql = `INSERT INTO Ledger( FileName, JobType, CreditsUsed, RewardPointsEarned, Email) VALUES (?)`;
+  let values = [
+    
+    req.body.FileName,
+    req.body.JobType,
+    req.body.CreditsUsed,
+    req.body.RewardPointsEarned,
+    req.body.Email,
+    
+    
+  ];
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "New player added successfully"
+    })
+  })
+});
+
+
 indexRouter.get('/listAll', cors(),function(req, res) {
   
   let sql = `SELECT * FROM data`;

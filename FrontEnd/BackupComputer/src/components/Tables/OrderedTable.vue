@@ -4,10 +4,10 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="ID">{{ item.ID }}</md-table-cell>
         <md-table-cell md-label="Time Stamp">{{ item.Timestamp }}</md-table-cell>
-        <md-table-cell md-label="File Name">{{ item.PlayerID }}</md-table-cell>
-        <md-table-cell md-label="Job Type">{{ item.PlayerID }}</md-table-cell>
-        <md-table-cell md-label="Credits Used">{{ item.TMIN30 }}</md-table-cell>
-        <md-table-cell md-label="Reward Points Earned">{{ item.TMOUT30 }}</md-table-cell>
+        <md-table-cell md-label="File Name">{{ item.FileName }}</md-table-cell>
+        <md-table-cell md-label="Job Type">{{ item.JobType }}</md-table-cell>
+        <md-table-cell md-label="Credits Used">{{ item.CreditsUsed }}</md-table-cell>
+        <md-table-cell md-label="Reward Points Earned">{{ item.RewardPointsEarned }}</md-table-cell>
         
       </md-table-row>
     </md-table>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-const API_URL = "http://edc-backend.production.wrapdrive.tech/v1/listAll";
+const API_URL_USERLedger = "http://bkc-backend.production.wrapdrive.tech/v1/getUserLedger";
 export default {
   name: "ordered-table",
   props: {
@@ -60,21 +60,26 @@ export default {
       ]
     };
   },
+
+  
 methods:{
 getData(){
-fetch(API_URL)
-      .then(response => response.json())
-      .then(result => {
+const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: this.$store.state.loggedInUserDetails['Email'] })
+  };
+  fetch(API_URL_USERLedger, requestOptions)
+    .then(response => response.json())
+    .then(result => {
         
-        
+        // console.log(result.data)
         this.allData = result['data']
-        this.users=this.allData
-        //console.clear()
-        
-      //  console.log(this.allData)
-        //JSON.parse(result['data'])
 
-      });
+        this.users=this.allData
+        this.$store.state.loggedInUserDetails['TotalJobs']=this.users.length
+        // console.log(this.users)
+        });
   },
 },
   mounted(){
