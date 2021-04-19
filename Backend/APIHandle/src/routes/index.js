@@ -102,6 +102,82 @@ indexRouter.post('/loginUser',cors(), function(req, res) {
     })
   })
 });
+indexRouter.post('/updateUser',cors(), function(req, res) {
+  //console.log(req);
+  let values = [
+    
+    req.body.FName,
+    req.body.LName,
+    req.body.Email,
+    req.body.Password
+    
+    
+  ];
+  let sql = `UPDATE Users SET FName='`+values[0]+`', LName='`+values[1]+`', Email='`+values[2]+`', Password='`+values[3]+`' WHERE Email='`+values[2]+`'`;
+  
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "User Updated"
+    })
+  })
+});
+
+indexRouter.post('/credReq',cors(), function(req, res) {
+  //console.log(req);
+  let values = [
+    
+    req.body.CreditsRequest,
+    req.body.Email,
+    
+    
+  ];
+  let sql = `UPDATE Users SET CreditsRequest='`+values[0]+`' WHERE Email='`+values[1]+`'`;
+  
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "User Updated"
+    })
+  })
+});
+
+indexRouter.get('/rewardEqCredits', cors(),function(req, res) {
+  
+  let sql = `SELECT RewardEqCredits FROM Admin`;
+  db.query(sql, function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      data,
+      message: "User lists retrieved successfully"
+    })
+  })
+});
+
+
+indexRouter.post('/rewardToCred',cors(), function(req, res) {
+  //console.log(req);
+  let values = [
+    
+    req.body.RewardPoints,
+    req.body.Credits,
+    req.body.Email
+    
+  ];
+  let sql = `UPDATE Users SET RewardPoints='`+values[0]+`' ,Credits='`+values[1]+`' WHERE Email='`+values[2]+`'`;
+  
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "User Updated"
+    })
+  })
+});
+
 
 indexRouter.get('/listAll', cors(),function(req, res) {
   
@@ -141,31 +217,6 @@ indexRouter.get('/getUser',cors(), function(req, res) {
 });
 
 
-indexRouter.post('/updateUser',cors(), function(req, res) {
-  //console.log(req);
-  let values = [
-    req.body.company,
-    req.body.username,
-    req.body.email,
-    req.body.firstname,
-    req.body.lastname,
-    req.body.address,
-    req.body.city,
-    req.body.country,
-    req.body.postalcode,
-    req.body.aboutme
-    
-  ];
-  let sql = `UPDATE user SET company='`+values[0]+`', username='`+values[1]+`', email='`+values[2]+`', firstname='`+values[3]+`', lastname='`+values[4]+`', address='`+values[5]+`', city='`+values[6]+`', country='`+values[7]+`', postalcode='`+values[8]+`', aboutme='`+values[9]+`'`;
-  
-  db.query(sql, [values], function(err, data, fields) {
-    if (err) throw err;
-    res.json({
-      status: 200,
-      message: "User Updated"
-    })
-  })
-});
 
 indexRouter.post('/addPlayer', cors(),function(req, res) {
   let sql = `INSERT INTO data(Timestamp, PlayerID, TMIN30, TMOUT30, TMIND, TMOUTD, ActiveStatus) VALUES (?)`;

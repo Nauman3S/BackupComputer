@@ -5,8 +5,8 @@
     </div>
 
     <md-card-content>
-      <h6 class="category text-gray">CEO / Co-Founder</h6>
-      <h4 class="card-title">{{firstname}} {{lastname}}</h4>
+      <h6 class="category text-gray">BackupComputer User</h6>
+      <h4 class="card-title">{{this.$store.state.loggedInUserDetails['FName']}} {{this.$store.state.loggedInUserDetails['LName']}}</h4>
       <p class="card-description">
         {{aboutme}}
       </p>

@@ -91,7 +91,7 @@
                       <p class="hidden-lg hidden-md">User</p>
                     </md-button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <li><h5>{{this.$store.state.loggedInUser}}</h5></li>
+                      <li><h5>{{this.$store.state.loggedInUserDetails['Email']}}</h5></li>
                       <li><a href="#/main">Logout</a></li>
                       
                       <!-- <li><a href="#">You have 5 new tasks</a></li>

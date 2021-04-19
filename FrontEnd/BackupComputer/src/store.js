@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     selectedCheckBoxes: [] ,
     loggedInUser: "",
-    loggedInUserRole: ""
+    loggedInUserRole: "",
+    loggedInUserDetails:[],
+    rewardToCreds:'1'
   },
   
   getters: {

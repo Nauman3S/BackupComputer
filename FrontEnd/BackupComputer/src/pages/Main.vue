@@ -35,7 +35,7 @@
 <script>
 const API_URL = "http://bkc-backend.production.wrapdrive.tech/v1/loginUser";
 
-
+const REWARDSEq = "http://bkc-backend.production.wrapdrive.tech/v1/rewardEqCredits";
 export default {
   components: {
     
@@ -78,12 +78,29 @@ export default {
   fetch(API_URL, requestOptions)
     .then(response => response.json())
     .then(result=>{
-      console.log(result.data)
+      // console.log(result.data)
+      // console.log(result.data[0])
+      // console.log(result.data[0]['Credits'])
+      this.$store.state.loggedInUserDetails=result.data[0]
+      
       if(result.data.length==0){
 
         this.notifyM("top","right",4,'Error','Error while logging-in.')
       }
       else{
+
+         fetch(REWARDSEq)
+       fetch(REWARDSEq)
+      .then(response => response.json())
+      .then(result2 => {
+        
+        this.$store.state.rewardToCreds =result2['data'][0].RewardEqCredits
+        console.log(this.$store.state.rewardToCreds)
+        
+        //JSON.parse(result['data'])
+
+      });
+
         this.notifyM("top","right",2,'Login','Login successful.')
           this.$store.state.loggedInUser=this.emailAd;
           this.$router.push({ path: 'dashboard'})
