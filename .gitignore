@@ -38,6 +38,7 @@ bower_components
 build/Release
 
 # Dependency directories
+DemoVideos/
 node_modules/
 jspm_packages/
 FrontEnd/BackupComputer/node_modules/
