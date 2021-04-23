@@ -253,7 +253,7 @@ const requestOptions = {
         var i=0;
         for (i=0;i<allFilesList.length;i++){
           fType=allFilesList[i].split('.')
-          this.allData.push({ID: i,FileName:allFilesList[i],FileType:fType[1]})
+          this.allData.push({ID: i,FileName:allFilesList[i],FileType:fType[1].toUpperCase()})
         }
         this.$store.state.filesData=this.allData;
         //console.log(this.allData)
