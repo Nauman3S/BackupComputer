@@ -40,7 +40,7 @@ var garageState = ''
 var connected = false
 
 client.on('connect', () => {
-  client.subscribe('edc-monitor/getActive')
+  client.subscribe('bkc-device/filesList')
   client.subscribe('edc-monitor/setActive')
   client.subscribe('edc-monitor/createNew')
   client.subscribe('edc-monitor/updatePlayer')
@@ -75,7 +75,7 @@ indexRouter.post('/registerUser', cors(),function(req, res) {
     req.body.Email,
     req.body.Password,
     "user",
-    "10",
+    "100",
     "5",
     "0",
     "0"
@@ -295,21 +295,15 @@ indexRouter.post('/addPlayer', cors(),function(req, res) {
   })
 });
 
-
+var filesList="";
 
 client.on('message', (topic, message) => {
   switch (topic) {
-    case 'edc-monitor/getActive':
+    case 'bkc-device/filesList':
+      filesList=message.toString();
+      console.log(filesList)
       
-      handlegetActive()
-      .then(function(results){
-        var strData=JSON.stringify(results[0])
-        client.publish('edc-monitor/activePlayer', strData)
-        
-      })
-      .catch(function(err){
-        console.log("Promise rejection error: "+err);
-      })
+      
       break;
     case 'edc-monitor/setActive':
     //handlesetActive(message.toString()).then(function(results1){var m=results1[0]}).catch(function(err){console.log('err',err)});    
@@ -477,6 +471,20 @@ function handleUpdatePlayer(playerID,Timestamp,TMIN30,TMOUT30,TMIND,TMOUTD,Activ
 )}
 
 
+indexRouter.post('/filesList',cors(), function(req, res) {
+  
+  
+  
+  let sql = `SELECT * FROM Users WHERE Email='`+req.body.email+`'`;
+  db.query(sql, function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      filesList,
+      message: "User lists retrieved successfully"
+    })
+  })
+});
 
 export default indexRouter;
 //export default cashHandleRouter;

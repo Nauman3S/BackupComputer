@@ -8,7 +8,7 @@
         <md-table-cell md-label="ID">{{ item.ID }}</md-table-cell>
         <md-table-cell md-label="File Name">{{ item.FileName }}</md-table-cell>
         <md-table-cell md-label="File Type">{{ item.FileType }}</md-table-cell>
-        <md-table-cell md-label="Uploaded On">{{ item.UploadTimestamp }}</md-table-cell>
+        
         <!-- <md-table-cell md-label="Total Money OUT 30 Days">{{ item.TMOUT30 }}</md-table-cell>
         <md-table-cell md-label="Total Money IN Daily">{{ item.TMIND }}</md-table-cell>
         <md-table-cell md-label="Total Money OUT Daily">{{ item.TMOUTD }}</md-table-cell> -->
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-const API_URL = "http://edc-backend.production.wrapdrive.tech/v1/listAll";
+
 //import selected from '@/assets/js/helper.js'
 export default {
   name: "FilesList",
@@ -31,61 +31,14 @@ export default {
   data() {
     return {
       selectedV: [],
-      allData:[
-        {
-                ID:1,
-                FileName:"DocumentT.pdf",
-                FileType:"PDF",
-                UploadTimestamp:"12/2/3",
-        },
-        {
-                ID:2,
-                FileName:"Picture.png",
-                FileType:"PNG",
-                UploadTimestamp:"12/8/2",
-        }
-
-
-              
-              
-              
-              
-              
-              
-              ],
+      allData:this.$store.state.filesData,
       users: [
-        {
-          id: 1,
-          name: "D1akota Rice",
-          salary: "$36,738",
-          country: "Niger",
-          city: "Oud-Turnhout"
-        },
-        {
-          id: 2,
-          name: "Minerva Hooper",
-          salary: "$23,738",
-          country: "Curaçao",
-          city: "Sinaai-Waas"
-        },
-        {
-          id: 3,
-          name: "Sage Rodriguez",
-          salary: "$56,142",
-          country: "Netherlands",
-          city: "Overland Park"
-        },
-        {
-          id: 4,
-          name: "Philip Chaney",
-          salary: "$38,735",
-          country: "Korea, South",
-          city: "Gloucester"
-        }
+       
       ]
     };
   },
 methods:{
+
 getData(){
 // fetch(API_URL)
 //       .then(response => response.json())
@@ -100,6 +53,9 @@ getData(){
 //         //JSON.parse(result['data'])
 
 //       });
+//this.allData=[]
+//this.getFilesList();
+this.allData=this.$store.state.filesData
 this.users=this.allData;
 //selected=this.selectedV;
 //this.$SelectedV=this.selectedV
@@ -108,13 +64,18 @@ this.$store.state.selectedCheckBoxes=this.selectedV;
 // console.log('selectedSTORE;',this.$store.state.totalTvCount)
   },
 },
+
   mounted(){
+    this.getData()
+    
     this.$nextTick(function () {
             window.setInterval(() => {
                 this.getData();
+                // this.allData=this.$store.state.filesData
+                // this.users=this.allData;
             },200);
         })
-    // this.getData()
+    this.getData()
   }
 };
 </script>

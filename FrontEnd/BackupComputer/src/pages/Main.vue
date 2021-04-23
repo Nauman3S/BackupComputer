@@ -78,7 +78,7 @@ export default {
   fetch(API_URL, requestOptions)
     .then(response => response.json())
     .then(result=>{
-      // console.log(result.data)
+       console.log(result.data)
       // console.log(result.data[0])
       // console.log(result.data[0]['Credits'])
       this.$store.state.loggedInUserDetails=result.data[0]
