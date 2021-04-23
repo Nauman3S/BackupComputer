@@ -21,10 +21,17 @@
                         <p class="category">Select the function(s) below to start a job</p>
                       </md-card-header>
                       <md-card-content  >
-                        <md-button class="md-primary md-lg" @click="print()"><md-icon >print</md-icon>Print</md-button>
+                        
                         <md-button class="md-primary md-lg" @click="copy()"><md-icon >file_copy</md-icon>Copy</md-button>
-                        <md-button class="md-primary md-lg" @click="print()"><md-icon >document_scanner</md-icon>Scan</md-button>
-                        <md-button class="md-primary md-lg" @click="print()"><md-icon >receipt_long</md-icon>Fax</md-button>
+                        <div class="md-layout-item md-small-size-100 md-size-50">
+                        <md-field>
+                          <label>Number of Copies</label>
+                          <md-input v-model="noOfCopies" type="number"></md-input>
+                        </md-field>
+                      </div>
+                        <md-button class="md-primary md-lg" @click="print()"><md-icon >print</md-icon>Print</md-button>
+                        <md-button class="md-primary md-lg" @click="scan()"><md-icon >document_scanner</md-icon>Scan</md-button>
+                        <md-button class="md-primary md-lg" @click="fax()"><md-icon >receipt_long</md-icon>Fax</md-button>
                       </md-card-content>
                     </md-card>
                   </div>
@@ -216,6 +223,7 @@ export default {
   data() {
     return {
       file:'',
+      noOfCopies:1,
       type: ["", "info", "success", "warning", "danger"],
       notifications: {
         topCenter: false
@@ -255,6 +263,7 @@ export default {
       var itemsList=this.$store.state.selectedCheckBoxes;
       var revPtsEarned=itemsList.length;
       var credPtsUsed=itemsList.length;
+      var FilName=itemsList.toString();
       
       var jobType="";
       
@@ -264,12 +273,30 @@ export default {
           credPtsUsed=itemsList.length*1
       }
 
+      if(type=="c"){
+          jobType="Copy"
+          revPtsEarned=this.noOfCopies*0.2;
+          credPtsUsed=this.noOfCopies*0.4;
+          FilName="N/A"
+      }
+      if(type=="s"){
+          jobType="Scan"
+          revPtsEarned=0.2;
+          credPtsUsed=0.2;
+          FilName="N/A";
+      }
+    if(type=="f"){
+          jobType="Fax"
+          revPtsEarned=itemsList.length*0.65;
+          credPtsUsed=itemsList.length*1.2
+      }
+
       
     const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ 
-                            FileName:itemsList.toString(),
+                            FileName:FilName,
                             JobType:jobType,
                             CreditsUsed:String(credPtsUsed),
                             RewardPointsEarned: String(revPtsEarned),
@@ -293,6 +320,19 @@ export default {
         credPts=credPts-itemsList.length;
           
       }
+      if(type=="c"){
+        revPts=revPts+0.2*this.noOfCopies;
+        credPts=credPts-this.noOfCopies*0.4;
+      }
+      if(type=="s"){
+        revPts=revPts+0.2*1;
+        credPts=credPts-(1*0.2);
+      }
+      if(type=="f"){
+        revPts=revPts+0.65*itemsList.length;
+        credPts=credPts-itemsList.length*1.2;
+      }
+      
     const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -306,7 +346,8 @@ export default {
     .then(
       this.$store.state.loggedInUserDetails['Credits']=credPts,
       this.$store.state.loggedInUserDetails['RewardPoints']=revPts,
-      this.appendLedger("p")
+      
+      this.appendLedger(type)
       
 
       //this.notifyM("top","right",2,'Redeemed','Rewards Redeemed.')
@@ -318,7 +359,8 @@ export default {
       var itemsList=this.$store.state.selectedCheckBoxes;
       
       if(itemsList.length==0){
-          this.notifyM("top","right",4,'Error','Please select a file to print.')
+        console.log(itemsList)
+          this.notifyM("top","right",4,'Error','Please select file(s) to print.')
       }
       else{
           console.log(itemsList)
@@ -329,8 +371,34 @@ export default {
       }
     },
     copy(){
-      console.log(this.$store.state.loggedInUser)
-      console.log(this.$store.state.loggedInUserDetails['FName'])
+      this.initiateJob("c");
+        
+        this.notifyM("top","right",2,'Copying','Copy job added successfully.')
+      // console.log(this.$store.state.loggedInUser)
+      // console.log(this.$store.state.loggedInUserDetails['FName'])
+
+    },
+    scan(){
+      this.initiateJob("s");
+        
+        this.notifyM("top","right",2,'Scanning','Scan job added successfully.')
+      // console.log(this.$store.state.loggedInUser)
+      // console.log(this.$store.state.loggedInUserDetails['FName'])
+
+    },
+    fax(){
+      var itemsList=this.$store.state.selectedCheckBoxes;
+       if(itemsList.length==0){
+         console.log(itemsList)
+          this.notifyM("top","right",4,'Error','Please select file(s) to fax.')
+      }
+      else{
+      this.initiateJob("f");
+        
+        this.notifyM("top","right",2,'Fax','Fax job added successfully.')
+      }
+      // console.log(this.$store.state.loggedInUser)
+      // console.log(this.$store.state.loggedInUserDetails['FName'])
 
     }
   }

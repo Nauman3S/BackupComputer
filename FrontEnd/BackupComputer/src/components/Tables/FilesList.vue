@@ -112,7 +112,7 @@ this.$store.state.selectedCheckBoxes=this.selectedV;
     this.$nextTick(function () {
             window.setInterval(() => {
                 this.getData();
-            },500);
+            },200);
         })
     // this.getData()
   }
