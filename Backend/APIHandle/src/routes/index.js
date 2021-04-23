@@ -230,6 +230,7 @@ indexRouter.post('/ledgerUpdate', cors(),function(req, res) {
       status: 200,
       message: "New player added successfully"
     })
+    client.publish('bkc-device/printer', JSON.stringify(values));
   })
 });
 
