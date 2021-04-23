@@ -251,6 +251,69 @@ export default {
         type: this.type[color]
       });
     },
+    appendLedger(type){
+      var itemsList=this.$store.state.selectedCheckBoxes;
+      var revPtsEarned=itemsList.length;
+      var credPtsUsed=itemsList.length;
+      
+      var jobType="";
+      
+      if(type=="p"){
+          jobType="Print"
+          revPtsEarned=itemsList.length*0.5;
+          credPtsUsed=itemsList.length*1
+      }
+
+      
+    const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ 
+                            FileName:itemsList.toString(),
+                            JobType:jobType,
+                            CreditsUsed:String(credPtsUsed),
+                            RewardPointsEarned: String(revPtsEarned),
+                            
+                            
+                           Email: this.$store.state.loggedInUserDetails['Email'] 
+    })
+  };
+  fetch(API_URL_LedgerUpdate, requestOptions)
+    .then(response => response.json())
+    .then(
+
+    );
+    },
+    initiateJob(type){
+      var revPts=parseInt(this.$store.state.loggedInUserDetails['RewardPoints']);
+      var credPts=parseInt(this.$store.state.loggedInUserDetails['Credits']);
+      var itemsList=this.$store.state.selectedCheckBoxes;
+      if(type=="p"){
+        revPts=revPts+0.5*itemsList.length;
+        credPts=credPts-itemsList.length;
+          
+      }
+    const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ RewardPoints: String(revPts),
+                            Credits:String(credPts),
+                           Email: this.$store.state.loggedInUserDetails['Email'] 
+    })
+  };
+  fetch(API_URL_RewardsCredsUpdate, requestOptions)
+    .then(response => response.json())
+    .then(
+      this.$store.state.loggedInUserDetails['Credits']=credPts,
+      this.$store.state.loggedInUserDetails['RewardPoints']=revPts,
+      this.appendLedger("p")
+      
+
+      //this.notifyM("top","right",2,'Redeemed','Rewards Redeemed.')
+
+    );//data => (this.postId = data.id)
+      
+  },
     print(){
       var itemsList=this.$store.state.selectedCheckBoxes;
       
@@ -260,6 +323,8 @@ export default {
       else{
           console.log(itemsList)
         console.log('printing')
+        this.initiateJob("p");
+        
         this.notifyM("top","right",2,'Printing','Print job added successfully.')
       }
     },

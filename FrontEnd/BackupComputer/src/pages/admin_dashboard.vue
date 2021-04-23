@@ -2,6 +2,7 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
+        <p>ADMIN HERE</p>
         <stats-card data-background-color="purple">
           <template slot="header">
             <md-icon>account_balance</md-icon>
