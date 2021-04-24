@@ -233,7 +233,103 @@ indexRouter.post('/ledgerUpdate', cors(),function(req, res) {
     client.publish('bkc-device/printer', JSON.stringify(values));
   })
 });
+//////////////////////////ADMIN
+indexRouter.post('/loginAdmin',cors(), function(req, res) {
+  let sql = `SELECT * FROM Admin WHERE Email='`+req.body.email+`' AND Password='`+req.body.password+`'`;
+  db.query(sql, function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      data,
+      message: "User lists retrieved successfully"
+    })
+  })
+});
 
+indexRouter.post('/updateAdmin',cors(), function(req, res) {
+  //console.log(req);
+  let values = [
+    
+    req.body.FName,
+    req.body.LName,
+    req.body.Email,
+    req.body.Password
+    
+    
+  ];
+  let sql = `UPDATE Admin SET FName='`+values[0]+`', LName='`+values[1]+`', Email='`+values[2]+`', Password='`+values[3]+`' WHERE Email='`+values[2]+`'`;
+  
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "User Updated"
+    })
+  })
+});
+
+
+indexRouter.post('/updateAdminRewVal',cors(), function(req, res) {
+  //console.log(req);
+  let values = [
+    
+    req.body.RewardEqCredits
+    
+    
+  ];
+  let sql = `UPDATE Admin SET RewardEqCredits='`+values[0]+`'`;
+  
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "User Updated"
+    })
+  })
+});
+
+indexRouter.post('/allCredReqs',cors(), function(req, res) {
+  let sql = `SELECT * FROM Users WHERE CreditsRequest>0`;
+  db.query(sql, function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      data,
+      message: "User lists retrieved successfully"
+    })
+  })
+});
+
+indexRouter.post('/ledgerLog',cors(), function(req, res) {
+  let sql = `SELECT * FROM Ledger `;
+  db.query(sql, function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      data,
+      message: "User lists retrieved successfully"
+    })
+  })
+});
+//UPDATE Users SET Credits=(CreditsRequest+Credits), CreditsRequest='0' WHERE Email='n@n.com'
+indexRouter.post('/approveCredReq',cors(), function(req, res) {
+  //console.log(req);
+  let values = [
+    
+    
+    req.body.Email
+    
+  ];
+  let sql = `UPDATE Users SET Credits=(CreditsRequest+Credits), CreditsRequest='0' WHERE Email='`+values[0]+`'`
+  
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "User Updated"
+    })
+  })
+});
 
 indexRouter.get('/listAll', cors(),function(req, res) {
   
