@@ -27,6 +27,7 @@
                     >Login</md-button><br><br>
       
       <router-link to="/register">Not a user? Register Now!</router-link>
+      <a href="http://bkc-admin.production.wrapdrive.tech">Login as a admin</a>
   </div>
     </div>
   </div>

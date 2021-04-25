@@ -26,7 +26,7 @@
                     @click="logIn()"
                     >Login</md-button><br><br>
       
-      <!-- <router-link to="/register">Not a user? Register Now!</router-link> -->
+      <a href="http://bkc-frontend.production.wrapdrive.tech">Login as a user</a>
   </div>
     </div>
   </div>

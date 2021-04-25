@@ -60,6 +60,33 @@
         </stats-card>
         
       </div>
+
+
+      <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
+        <stats-card data-background-color="teal">
+          <template slot="header">
+            <md-icon>loop</md-icon>
+          </template>
+
+          <template slot="content">
+            <p class="category">Jobs In Progress</p>
+            <h3 class="title">{{this.$store.state.allTimeJobs}}</h3>
+          </template>
+
+          <template slot="footer">
+            <div class="stats">
+              <!-- <md-icon>date_range</md-icon> -->
+              <md-button class="md-danger" @click="cancelAllJobs()">
+                   Cancel
+        </md-button>
+        <md-button class="md-primary" @click="restoreAllJobs()">
+                   Restore
+        </md-button>
+            </div>
+          </template>
+        </stats-card>
+        
+      </div>
 <!--       
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
@@ -272,19 +299,11 @@ export default {
     };
   },
   methods:{
-getData(){
-// fetch(API_URL_USERLedger)
-//        fetch(API_URL_USERLedger)
-//       .then(response => response.json())
-//       .then(result => {
-        
-//         this.Timestamp ='Last Updated '+ result['data'][0].Timestamp,
-//         this.PlayerID = result['data'][0].PlayerID
-//         this.TMIN30=result['data'][0].TMIN30
-//         this.TMOUT30=result['data'][0].TMOUT30
-//         //JSON.parse(result['data'])
+cancelAllJobs(){
 
-//       });
+  },
+restoreAllJobs(){
+
   },
 },
   mounted(){

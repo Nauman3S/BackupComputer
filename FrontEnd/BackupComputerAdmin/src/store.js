@@ -10,7 +10,7 @@ export default new Vuex.Store({
     loggedInUserRole: "",
     loggedInUserDetails:[],
     rewardToCreds:'1',
-    filesData:[],
+    allCredsReqs:[],
     allTimeSales:0,
     allTimeJobs:0,
     allTimeRewardsIssued:0

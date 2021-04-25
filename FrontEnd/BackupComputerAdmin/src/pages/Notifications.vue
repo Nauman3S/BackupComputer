@@ -6,7 +6,7 @@
           <md-card-header data-background-color="purple">
             <h4 class="title">Controller</h4>
             <p class="category">
-              Interact with your Backup-Computer
+              Admin Panel
             </p>
           </md-card-header>
           <md-card-content>
@@ -78,8 +78,8 @@
                 <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-150 md-size-150"
       >
-      <md-button class="md-primary" @click="refreshFilesList()">
-                   Refresh List 
+      <md-button class="md-primary" @click="ApproveReq()">
+                   Approve Selected Requests
         </md-button>
         <md-card>
         
@@ -197,8 +197,8 @@
 
 <script>
 const API_URL_RewardsCredsUpdate = "http://bkc-backend.production.wrapdrive.tech/v1/rewardCredsUpdate";
-const API_URL_LedgerUpdate = "http://bkc-backend.production.wrapdrive.tech/v1/ledgerUpdate";
-const API_URL_FILESLIST = "http://bkc-backend.production.wrapdrive.tech/v1/filesList";
+const API_URL_CRApprove = "http://bkc-backend.production.wrapdrive.tech/v1/approveCredReq";
+const API_URL_CredsReqs = "http://bkc-backend.production.wrapdrive.tech/v1/allCredReqs";
 
 import {
   
@@ -233,41 +233,35 @@ export default {
   },
   
   methods: {
-    getFilesList(){
-const requestOptions = {
+
+    
+    getCredReqs(){
+  const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: this.$store.state.loggedInUserDetails['Email'] })
   };
-  fetch(API_URL_FILESLIST, requestOptions)
+  fetch(API_URL_CredsReqs, requestOptions)
     .then(response => response.json())
-    .then(result => {
-        
-        // console.log(result.data)
-//        this.allData = result['filesList']
+    .then(result=>{
+     // console.log(result['data'])
+      // this.allData=result['data'];
+      this.$store.state.allCredsReqs=result['data']
+      // this.users=this.allData;
+      
+}
 
-        var listData = result['filesList']
-        var allFilesList=listData.split(',')
-        console.log(allFilesList)
-        var fType="";
-        var i=0;
-        for (i=0;i<allFilesList.length;i++){
-          fType=allFilesList[i].split('.')
-          this.allData.push({ID: i,FileName:allFilesList[i],FileType:fType[1].toUpperCase()})
-        }
-        this.$store.state.filesData=this.allData;
-        //console.log(this.allData)
-        // this.users=this.allData
-        // this.$store.state.loggedInUserDetails['TotalJobs']=this.users.length
-        // console.log(this.users)
-        });
+      //this.notifyM("top","right",2,'Redeemed','Rewards Redeemed.')
+
+    );//data => (this.postId = data.id)
+
   },
 
-    refreshFilesList(){
+    refreshcredsReqsList(){
       
-      this.allData=[];
-      this.$store.state.filesData=[];
-      this.getFilesList();
+      //this.allData=[];
+      //this.$store.state.filesData=[];
+      this.getCredReqs();
     //this.file = this.$refs.file.files[0];
     //console.log(this.file)
   },
@@ -295,58 +289,41 @@ const requestOptions = {
         type: this.type[color]
       });
     },
-    appendLedger(type){
+    approveSelCredReq(){
       var itemsList=this.$store.state.selectedCheckBoxes;
-      var revPtsEarned=itemsList.length;
-      var credPtsUsed=itemsList.length;
-      var FilName=itemsList.toString();
-      
-      var jobType="";
-      
-      if(type=="p"){
-          jobType="Print"
-          revPtsEarned=itemsList.length*0.5;
-          credPtsUsed=itemsList.length*1
-      }
+      var reqsLen=itemsList.length;
+      var i=0;
+      for (i=0;i<reqsLen;i++){
 
-      if(type=="c"){
-          jobType="Copy"
-          revPtsEarned=this.noOfCopies*0.2;
-          credPtsUsed=this.noOfCopies*0.4;
-          FilName="N/A"
-      }
-      if(type=="s"){
-          jobType="Scan"
-          revPtsEarned=0.2;
-          credPtsUsed=0.2;
-          FilName="N/A";
-      }
-    if(type=="f"){
-          jobType="Fax"
-          revPtsEarned=itemsList.length*0.65;
-          credPtsUsed=itemsList.length*1.2
-      }
-
-      
-    const requestOptions = {
+        const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ 
-                            FileName:FilName,
-                            JobType:jobType,
-                            CreditsUsed:String(credPtsUsed),
-                            RewardPointsEarned: String(revPtsEarned),
-                            
-                            
-                           Email: this.$store.state.loggedInUserDetails['Email'] 
+                           Email: itemsList[i]
     })
   };
-  fetch(API_URL_LedgerUpdate, requestOptions)
+  fetch(API_URL_CRApprove, requestOptions)
     .then(response => response.json())
     .then(
 
     );
+    }
+
+      },
+      
+      ApproveReq(){
+        console.log(this.$store.state.selectedCheckBoxes)
+        if(this.$store.state.selectedCheckBoxes.length>0){
+            this.approveSelCredReq();
+            this.notifyM("top","right",2,'Credit Request','Credit request successfully.')
+        }
+        else{
+          this.notifyM("top","right",4,'Error','Please select request(s) to approve.')
+        }
+        
     },
+    
+
     initiateJob(type){
       var revPts=parseInt(this.$store.state.loggedInUserDetails['RewardPoints']);
       var credPts=parseInt(this.$store.state.loggedInUserDetails['Credits']);
@@ -439,7 +416,14 @@ const requestOptions = {
     }
   },
   mounted(){
-    this.getFilesList();
+    
+    this.$nextTick(function () {
+            window.setInterval(() => {
+                this.refreshcredsReqsList();
+                // this.allData=this.$store.state.filesData
+                // this.users=this.allData;
+            },2000);
+        })
   }
 };
 </script>
