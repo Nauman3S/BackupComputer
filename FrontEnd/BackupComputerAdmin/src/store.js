@@ -13,7 +13,8 @@ export default new Vuex.Store({
     allCredsReqs:[],
     allTimeSales:0,
     allTimeJobs:0,
-    allTimeRewardsIssued:0
+    allTimeRewardsIssued:0,
+    systemStatus:'Normal'
   },
   
   getters: {

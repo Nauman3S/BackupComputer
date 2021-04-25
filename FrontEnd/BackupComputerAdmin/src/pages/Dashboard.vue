@@ -69,8 +69,8 @@
           </template>
 
           <template slot="content">
-            <p class="category">Jobs In Progress</p>
-            <h3 class="title">{{this.$store.state.allTimeJobs}}</h3>
+            <p class="category">System Status</p>
+            <h3 class="title">{{this.$store.state.systemStatus}}</h3>
           </template>
 
           <template slot="footer">
@@ -184,7 +184,7 @@
 </template>
 
 <script>
-// const API_URL = "http://edc-backend.production.wrapdrive.tech/v1/getActive";
+const API_URL_jobOPS = "http://bkc-backend.production.wrapdrive.tech/v1/jobOperations";
 // const API_URL_USERLedger = "http://bkc-backend.production.wrapdrive.tech/v1/ledgerLog";
 import {
   StatsCard,
@@ -300,9 +300,39 @@ export default {
   },
   methods:{
 cancelAllJobs(){
+    this.$store.state.systemStatus='Canceling';
+    const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ 
+                           operation: 'cancel'
+    })
+  };
+  fetch(API_URL_jobOPS, requestOptions)
+    .then(response => response.json())
+    .then(result=>{
+      this.$store.state.systemStatus='Canceled All'}
+
+    );
 
   },
 restoreAllJobs(){
+  this.$store.state.systemStatus='Restoring';
+      const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ 
+                           operation: 'restore'
+    })
+  };
+  fetch(API_URL_jobOPS, requestOptions)
+    .then(response => response.json())
+    .then(result=>{
+      this.$store.state.systemStatus='Restored All'}
+    
+
+    );
+
 
   },
 },

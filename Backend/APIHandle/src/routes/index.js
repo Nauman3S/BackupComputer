@@ -41,7 +41,7 @@ var connected = false
 
 client.on('connect', () => {
   client.subscribe('bkc-device/filesList')
-  client.subscribe('edc-monitor/setActive')
+  client.subscribe('bkc-device/cancelAllJobs')
   client.subscribe('edc-monitor/createNew')
   client.subscribe('edc-monitor/updatePlayer')
   client.subscribe('edc-monitor/playerExists')
@@ -311,6 +311,29 @@ indexRouter.post('/ledgerLog',cors(), function(req, res) {
     })
   })
 });
+
+indexRouter.post('/jobOperations',cors(), function(req, res) {
+  if(req.body.operation=='cancel')
+  {
+  client.publish("bkc-device/allJobsOperation","cancel")
+  res.json({
+    status: 200,
+    
+    message: "Jobs canceled successfully"
+  })
+  }
+  else if(req.body.operation=='restore')
+  {
+  client.publish("bkc-device/allJobsOperation","restore")
+  res.json({
+    status: 200,
+    
+    message: "Jobs restored successfully"
+  })
+  }
+    
+  
+});
 //UPDATE Users SET Credits=(CreditsRequest+Credits), CreditsRequest='0' WHERE Email='n@n.com'
 indexRouter.post('/approveCredReq',cors(), function(req, res) {
   //console.log(req);
@@ -330,6 +353,8 @@ indexRouter.post('/approveCredReq',cors(), function(req, res) {
     })
   })
 });
+
+
 
 indexRouter.get('/listAll', cors(),function(req, res) {
   

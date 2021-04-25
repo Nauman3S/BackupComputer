@@ -14,7 +14,7 @@
       </sidebar-link>
       <sidebar-link to="/notifications">
         <md-icon>settings_input_composite</md-icon>
-        <p>Control Center</p>
+        <p>Admin Center</p>
       </sidebar-link>
       <sidebar-link to="/user">
         <md-icon>person</md-icon>

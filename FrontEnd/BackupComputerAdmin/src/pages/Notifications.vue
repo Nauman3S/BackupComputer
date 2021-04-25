@@ -18,20 +18,11 @@
                     <md-card>
                       <md-card-header data-background-color="blue">
                         <h4 class="title">Controller</h4>
-                        <p class="category">Select the function(s) below to start a job</p>
+                        <p class="category">Ctrl</p>
                       </md-card-header>
                       <md-card-content  >
                         
-                        <md-button class="md-primary md-lg" @click="copy()"><md-icon >file_copy</md-icon>Copy</md-button>
-                        <div class="md-layout-item md-small-size-100 md-size-50">
-                        <md-field>
-                          <label>Number of Copies</label>
-                          <md-input v-model="noOfCopies" type="number"></md-input>
-                        </md-field>
-                      </div>
-                        <md-button class="md-primary md-lg" @click="print()"><md-icon >print</md-icon>Print</md-button>
-                        <md-button class="md-primary md-lg" @click="scan()"><md-icon >document_scanner</md-icon>Scan</md-button>
-                        <md-button class="md-primary md-lg" @click="fax()"><md-icon >receipt_long</md-icon>Fax</md-button>
+                     
                       </md-card-content>
                     </md-card>
                   </div>
