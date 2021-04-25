@@ -187,7 +187,8 @@ indexRouter.post('/rewardCredsUpdate',cors(), function(req, res) {
     
     req.body.RewardPoints,
     req.body.Credits,
-    req.body.Email
+    req.body.Email,
+    
     
   ];
   let sql = `UPDATE Users SET RewardPoints='`+values[0]+`' ,Credits='`+values[1]+`' WHERE Email='`+values[2]+`'`;

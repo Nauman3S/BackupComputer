@@ -374,7 +374,8 @@ const requestOptions = {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ RewardPoints: String(revPts),
                             Credits:String(credPts),
-                           Email: this.$store.state.loggedInUserDetails['Email'] 
+                           Email: this.$store.state.loggedInUserDetails['Email'],
+                           JobType: type,
     })
   };
   fetch(API_URL_RewardsCredsUpdate, requestOptions)
